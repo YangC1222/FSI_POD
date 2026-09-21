@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="板型燃料组件双向流固耦合 POD 降阶预测模型：可行性、创新边界、技术风险与研究路线。">
+  <meta name="theme-color" content="#07141f">
+  <title>FSI × POD｜板型燃料组件降阶研究评估</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark" aria-hidden="true">Φ</span>
+      <span>FSI × POD</span>
+    </a>
+    <nav class="desktop-nav" aria-label="章节导航">
+      <a href="#verdict">核心判断</a>
+      <a href="#premises">前提审查</a>
+      <a href="#evidence">文献坐标</a>
+      <a href="#routes">研究路线</a>
+      <a href="#architecture">推荐架构</a>
+      <a href="#roadmap">验证计划</a>
+    </nav>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">打开目录</span>
+    </button>
+  </header>
+
+  <nav id="mobile-nav" class="mobile-nav" aria-label="移动端章节导航" hidden>
+    <a href="#verdict">核心判断</a>
+    <a href="#premises">前提审查</a>
+    <a href="#evidence">文献坐标</a>
+    <a href="#routes">研究路线</a>
+    <a href="#architecture">推荐架构</a>
+    <a href="#roadmap">验证计划</a>
+  </nav>
+
+  <main id="main">
+    <section id="top" class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">RESEARCH IDEA AUDIT · 2026.09</p>
+        <h1><span class="title-line">将 POD 用于</span><span class="title-line">板型燃料组件</span><span class="title-line accent">双向流固耦合预测</span></h1>
+        <p class="lead">这条路线可以做，但不能只做“POD + 新对象”。真正值得研究的问题，是如何在窄流道、多柔性板、高雷诺数与强附加质量条件下，保持双向耦合的稳定性、界面一致性和临界状态预测能力。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#verdict">阅读评估结论</a>
+          <a class="button secondary" href="#task-contract">查看任务合同</a>
+        </div>
+      </div>
+
+      <aside class="verdict-panel reveal" aria-label="评估摘要">
+        <div class="verdict-topline">
+          <span class="status-pill">结论：有条件可行</span>
+          <span class="version">v1.0</span>
+        </div>
+        <div class="score-list">
+          <div class="score-row">
+            <div><span>概念验证可行性</span><strong>4.0 / 5</strong></div>
+            <div class="meter"><i style="--value:80%"></i></div>
+          </div>
+          <div class="score-row">
+            <div><span>完整三维实施性</span><strong>2.5 / 5</strong></div>
+            <div class="meter"><i style="--value:50%"></i></div>
+          </div>
+          <div class="score-row">
+            <div><span>潜在研究价值</span><strong>4.0 / 5</strong></div>
+            <div class="meter"><i style="--value:80%"></i></div>
+          </div>
+          <div class="score-row">
+            <div><span>当前表述创新性</span><strong>2.0 / 5</strong></div>
+            <div class="meter warning"><i style="--value:40%"></i></div>
+          </div>
+        </div>
+        <p class="panel-note">评分用于暴露薄弱环节，不代表科学证明。最大不确定性是模型边界：只降结构，还是降低整个耦合闭环。</p>
+      </aside>
+    </section>
+
+    <section id="verdict" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">01 / 核心判断</p>
+        <h2>可发表性取决于你解决了什么，<br>而不是用了什么缩写。</h2>
+      </div>
+      <div class="verdict-grid">
+        <article class="statement-card positive reveal">
+          <span class="card-kicker">值得保留</span>
+          <h3>问题本身真实且重要</h3>
+          <p>板型燃料的微小变形会改变窄流道阻力、流量分配和板两侧压差，再反过来改变结构响应。高保真双向 CFD–FEA 成本高，快速预测具有明确工程需求。</p>
+        </article>
+        <article class="statement-card caution reveal">
+          <span class="card-kicker">需要收窄</span>
+          <h3>“首次应用 POD”不是可靠创新点</h3>
+          <p>POD 已用于双向 FSI、移动网格、弹性梁振动和高雷诺数算例；板型燃料的高保真双向耦合也已有研究。创新必须落在新的技术能力或新的证据上。</p>
+        </article>
+        <article class="statement-card neutral reveal">
+          <span class="card-kicker">建议定位</span>
+          <h3>把课题改写为“稳定的参数化耦合 ROM”</h3>
+          <p>目标应是保留界面力学、流量再分配和失稳边界，并在多个流速、刚度或几何参数间泛化，而不只是对已有快照进行高精度重构。</p>
+        </article>
+      </div>
+      <blockquote class="thesis reveal">
+        <span>建议核心命题</span>
+        <p>高雷诺数窄流道、多柔性板和强附加质量条件下，如何构建稳定、参数化、保持界面耦合物理的双向 FSI-ROM？</p>
+      </blockquote>
+    </section>
+
+    <section id="premises" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">02 / 前提审查</p>
+        <h2>三个容易误导研究设计的前提</h2>
+      </div>
+      <div class="audit-list">
+        <article class="audit-item reveal">
+          <div class="audit-number">01</div>
+          <div>
+            <p class="audit-label">错误前提</p>
+            <h3>第一篇燃料棒论文已经解决了双向 FSI-ROM</h3>
+            <p>该文主要用 CMS 降低结构自由度，再通过 POD 和稀疏测量重构结构位移场。流体载荷由 Fluent/LES 预先计算并延长为时序信号，结构变形没有逐时间步返回流体域。</p>
+            <div class="correction"><strong>修正：</strong>它是很好的“结构响应降阶”锚点，但不能作为在线双向闭环已经成立的证据。</div>
+          </div>
+        </article>
+        <article class="audit-item reveal">
+          <div class="audit-number">02</div>
+          <div>
+            <p class="audit-label">逻辑跳跃</p>
+            <h3>POD + LSTM 在固定方腔中有效，所以可以直接迁移到 FSI</h3>
+            <p>第二篇论文在固定几何的相变传热问题中预测 POD 时间系数，没有柔性边界、界面能量交换、网格运动或强耦合迭代。其 30%–40% 的加速也不是完整 FSI 的成本证据。</p>
+            <div class="correction"><strong>修正：</strong>LSTM 可作为系数动力学候选，但必须显式输入结构状态与耦合载荷，并验证长期稳定性和工况外失效。</div>
+          </div>
+        </article>
+        <article class="audit-item reveal">
+          <div class="audit-number">03</div>
+          <div>
+            <p class="audit-label">评价偏差</p>
+            <h3>POD 累计能量足够高，就代表 FSI 预测可靠</h3>
+            <p>低能量模态可能主导界面压力、涡脱落、板间相位和失稳起点。速度场或位移场的全局 L² 误差很小，也可能掩盖错误的合力、频率与临界流速。</p>
+            <div class="correction"><strong>修正：</strong>选模态必须同时约束界面力、频谱、相位、阻尼和稳定边界，而不能只看奇异值能量。</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="evidence" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">03 / 文献坐标</p>
+        <h2>已有研究已经覆盖哪里，<br>你的空间还剩在哪里</h2>
+      </div>
+      <div class="evidence-table-wrap reveal" role="region" aria-label="关键文献比较表" tabindex="0">
+        <table class="evidence-table">
+          <thead>
+            <tr><th>角色</th><th>已有能力</th><th>尚未解决</th><th>对本研究的约束</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag">问题锚点</span><strong>板型燃料双向 FSI</strong></td>
+              <td>多板窄流道、流致挠曲和水力失稳已有 CFD–FEA 方法。</td>
+              <td>高保真计算代价、快速参数扫描与在线预测。</td>
+              <td>不能把“双向板型燃料 FSI”本身作为创新。</td>
+            </tr>
+            <tr>
+              <td><span class="tag">方法锚点</span><strong>POD–RBF 双向 FSI</strong></td>
+              <td>已有非侵入式 POD–RBF 处理双向耦合和弹性梁涡激振动。</td>
+              <td>高雷诺数、多柔性板、核热工况和严格外推。</td>
+              <td>需要明确为何现有 NIROM 在目标工况下不够。</td>
+            </tr>
+            <tr>
+              <td><span class="tag">最近竞争者</span><strong>ALE 分区 FSI-ROM</strong></td>
+              <td>POD–Galerkin 降低流场，RBF 处理网格运动，保留在线耦合。</td>
+              <td>公开验证多集中于二维圆柱、刚体运动或较简化结构。</td>
+              <td>推荐作为算法基线，而不是忽略它重新组合模块。</td>
+            </tr>
+            <tr>
+              <td><span class="tag">场景锚点</span><strong>LBE 板型燃料多物理</strong></td>
+              <td>已有压力差激励、共振、热应力和推荐流速研究。</td>
+              <td>缺少面向快速预测的参数化耦合 ROM 与可信误差边界。</td>
+              <td>可把“高保真机理模型 → 可部署 ROM”作为价值链。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="source-cards">
+        <a class="source-card reveal" href="https://doi.org/10.1016/j.cma.2015.12.029" target="_blank" rel="noreferrer">
+          <span>2016 · CMAME</span><strong>Non-intrusive reduced order modelling of fluid–structure interactions</strong><em>双向 FSI POD–RBF 的早期直接竞争工作 ↗</em>
+        </a>
+        <a class="source-card reveal" href="https://doi.org/10.1016/j.compfluid.2025.106824" target="_blank" rel="noreferrer">
+          <span>2025 · Computers &amp; Fluids</span><strong>A reduced-order model for segregated FSI solvers based on ALE</strong><em>流场、压力与网格运动的关键方法锚点 ↗</em>
+        </a>
+        <a class="source-card reveal" href="https://doi.org/10.1016/j.cma.2025.117736" target="_blank" rel="noreferrer">
+          <span>2025 · CMAME</span><strong>Non-intrusive nonlinear structural ROM for partitioned two-way FSI</strong><em>“只降结构、保留 CFD”路线的强竞争者 ↗</em>
+        </a>
+        <a class="source-card reveal" href="https://doi.org/10.1016/j.anucene.2026.112348" target="_blank" rel="noreferrer">
+          <span>2026 · Annals of Nuclear Energy</span><strong>Thermal-fluid-structure coupling of plate-type fuel elements</strong><em>LBE 板型燃料的直接场景锚点 ↗</em>
+        </a>
+      </div>
+    </section>
+
+    <section id="routes" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">04 / 路线选择</p>
+        <h2>三条技术路线，不同的风险—价值曲线</h2>
+      </div>
+      <div class="route-grid">
+        <article class="route-card reveal">
+          <div class="route-head"><span>A</span><p>低风险起点</p></div>
+          <h3>结构侧 ROM</h3>
+          <p>流体保持全阶 CFD；用 CMS/POD 或非线性模态展开降低结构模型。</p>
+          <dl><div><dt>可行性</dt><dd>高</dd></div><div><dt>研究价值</dt><dd>中低</dd></div><div><dt>主要风险</dt><dd>CFD 仍是成本瓶颈</dd></div></dl>
+        </article>
+        <article class="route-card recommended reveal">
+          <div class="route-head"><span>B</span><p>推荐主线</p></div>
+          <h3>全耦合 ROM</h3>
+          <p>同时降低流体、结构和网格运动，并在在线阶段执行强耦合迭代。</p>
+          <dl><div><dt>可行性</dt><dd>中低</dd></div><div><dt>研究价值</dt><dd>高</dd></div><div><dt>主要风险</dt><dd>稳定性与湍流闭合</dd></div></dl>
+        </article>
+        <article class="route-card reveal">
+          <div class="route-head"><span>C</span><p>快速但需设护栏</p></div>
+          <h3>非侵入式代理</h3>
+          <p>从耦合 FOM 快照学习 POD 系数演化，可使用 OpInf、RBF 或循环网络。</p>
+          <dl><div><dt>可行性</dt><dd>中</dd></div><div><dt>研究价值</dt><dd>中高</dd></div><div><dt>主要风险</dt><dd>黑箱外推与长期漂移</dd></div></dl>
+        </article>
+      </div>
+      <p class="route-recommendation reveal"><strong>推荐策略：</strong>以 B 为博士论文主线，但按 A → B 逐步推进。先证明接口、结构响应与强耦合稳定，再降低高成本的流体侧。</p>
+    </section>
+
+    <section id="architecture" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">05 / 推荐架构</p>
+        <h2>保持双向闭环，而不是只重构漂亮的流场</h2>
+      </div>
+      <div class="architecture-card reveal">
+        <div class="flow-row">
+          <div class="flow-node"><span>输入</span><strong>流速 · 刚度 · 厚度<br>物性 · 约束 · 初态</strong></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent"><span>流体 ROM</span><strong>参考域局部 POD<br>压力/速度/湍流闭合</strong></div>
+          <div class="flow-arrow bidirectional" aria-hidden="true">⇄</div>
+          <div class="flow-node accent"><span>结构 ROM</span><strong>板壳模态或 CMS<br>几何非线性扩展</strong></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>输出</span><strong>位移 · 压差 · 应力<br>频率 · 稳定边界</strong></div>
+        </div>
+        <div class="architecture-notes">
+          <div><b>网格运动</b><span>ALE 映射或 POD–RBF，将不同变形状态对齐到参考域。</span></div>
+          <div><b>界面条件</b><span>同时满足几何相容、速度连续和动力平衡；监测界面功率误差。</span></div>
+          <div><b>耦合求解</b><span>强耦合迭代配合 Aitken 或准牛顿加速，防范 added-mass instability。</span></div>
+          <div><b>跨工况泛化</b><span>针对亚临界、锁频和超临界状态建立局部或分段基底。</span></div>
+          <div><b>安全护栏</b><span>加入误差指示器；超出训练流形时触发高保真回退，而不是盲目输出。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="risks" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">06 / 风险账本</p>
+        <h2>最容易被低估的变量、成本与偏差</h2>
+      </div>
+      <div class="risk-grid">
+        <article class="risk-card high reveal"><span>高风险</span><h3>跨失稳边界的流形分叉</h3><p>一个全局 POD 基底可能在临界流速附近突然失效。必须分区建模并把临界状态纳入训练。</p></article>
+        <article class="risk-card high reveal"><span>高风险</span><h3>湍流闭合与压力载荷误差</h3><p>速度场误差小不代表压力积分合力准确。需要以界面载荷为目标的闭合与加权基底。</p></article>
+        <article class="risk-card high reveal"><span>高风险</span><h3>离线成本被隐藏</h3><p>ROM 只有在重复查询足够多时才划算。应报告全阶样本生成成本和盈亏平衡次数。</p></article>
+        <article class="risk-card medium reveal"><span>中风险</span><h3>多板集体模态遗漏</h3><p>单板或单通道快照不能覆盖同相、反相以及局部模态之间的转换。</p></article>
+        <article class="risk-card medium reveal"><span>中风险</span><h3>材料与服役状态漂移</h3><p>温度、辐照、肿胀和约束松弛会改变刚度与间隙，需要明确是否进入第一阶段范围。</p></article>
+        <article class="risk-card medium reveal"><span>中风险</span><h3>数据泄漏与乐观验证</h3><p>随机拆分快照会把同一轨迹的相邻时刻同时放入训练和测试。应按完整工况留出测试。</p></article>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">07 / 最小可行研究计划</p>
+        <h2>先建立能被证伪的闭环，再扩大物理范围</h2>
+      </div>
+      <ol class="timeline">
+        <li class="reveal"><span>阶段 1</span><div><h3>可信全阶基准</h3><p>二维双板三流道；单相不可压；选取流速、板刚度与厚度三个参数。完成网格、时间步与耦合收敛验证。</p><em>交付：可重复的双向 FSI 基准与误差预算</em></div></li>
+        <li class="reveal"><span>阶段 2</span><div><h3>结构侧降阶与接口验证</h3><p>在保持全阶 CFD 的条件下替换结构模型，验证位移、界面力、相位和能量交换。</p><em>交付：A 路线基线与耦合稳定性证据</em></div></li>
+        <li class="reveal"><span>阶段 3</span><div><h3>流体与网格降阶</h3><p>分别构造速度、压力和网格位移基底，引入闭合项与强耦合加速，比较 Galerkin 与非侵入式动力学。</p><em>交付：完整在线双向 ROM</em></div></li>
+        <li class="reveal"><span>阶段 4</span><div><h3>临界状态与参数外推</h3><p>按亚临界、锁频和超临界区间留出整组工况测试；评估局部基底、误差指示和高保真回退。</p><em>交付：真正构成论文贡献的边界证据</em></div></li>
+        <li class="reveal"><span>阶段 5</span><div><h3>三维与多物理扩展</h3><p>仅在前四阶段通过后，再考虑三维组件、热应力、辐照和材料退化，避免范围失控。</p><em>交付：工程应用扩展，而非首篇论文的必要前提</em></div></li>
+      </ol>
+    </section>
+
+    <section id="task-contract" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">08 / 暂定任务合同</p>
+        <h2>当前已知、推断与必须确认的边界</h2>
+      </div>
+      <div class="contract-grid reveal">
+        <div><span class="provenance provided">PROVIDED</span><h3>研究对象</h3><p>板型燃料组件的双向流固耦合预测。</p></div>
+        <div><span class="provenance inferred">INFERRED</span><h3>核心目标</h3><p>以低于全阶 CFD–FEA 的成本预测结构响应和关键流动载荷。</p></div>
+        <div><span class="provenance provisional">PROVISIONAL</span><h3>核心假设</h3><p>参考域上的局部流体基底与结构基底，经强耦合后仍可保持关键 FSI 机制。</p></div>
+        <div><span class="provenance unknown">UNKNOWN</span><h3>待确认边界</h3><p>冷却剂、雷诺数、板数、几何、热/辐照效应、目标输出和计算资源。</p></div>
+      </div>
+      <div class="hypothesis reveal">
+        <h3>可证伪假设</h3>
+        <p>如果 ROM 能重构瞬时场，却不能正确预测板两侧压差、板间相位、锁频区间或临界流速，则“低维耦合动力学保持关键 FSI 机制”的假设应被削弱或否定。</p>
+      </div>
+    </section>
+
+    <section id="metrics" class="section-shell content-section">
+      <div class="section-heading reveal">
+        <p class="section-index">09 / 证据标准</p>
+        <h2>论文不能只报告场变量相对误差</h2>
+      </div>
+      <div class="metric-list reveal">
+        <span>位移 RMS 与峰值</span><span>界面压力与合力</span><span>主频与频谱能量</span><span>板间相位关系</span><span>临界流速误差</span><span>耦合残差与界面功</span><span>整工况留出测试</span><span>模态数与样本数消融</span><span>长期稳定性</span><span>在线加速比</span><span>离线成本</span><span>盈亏平衡次数</span>
+      </div>
+    </section>
+
+    <section id="references" class="section-shell content-section references">
+      <div class="section-heading reveal">
+        <p class="section-index">10 / 关键参考</p>
+        <h2>用于约束任务、方法与新颖性的文献</h2>
+      </div>
+      <ol class="reference-list reveal">
+        <li><a href="https://doi.org/10.1016/j.anucene.2026.112791">Yang et al. A novel CMS–POD reduced-order model for FIV prediction of nuclear fuel rods. Annals of Nuclear Energy, 2027.</a></li>
+        <li><a href="https://doi.org/10.1016/j.est.2023.107018">Nokhosteen &amp; Sobhansarbandi. Melting behavior prediction of latent heat storage materials: A multi-pronged solution. Journal of Energy Storage, 2023.</a></li>
+        <li><a href="https://doi.org/10.1016/j.cma.2015.12.029">Xiao et al. Non-intrusive reduced order modelling of fluid–structure interactions. CMAME, 2016.</a></li>
+        <li><a href="https://doi.org/10.1016/j.compfluid.2025.106824">Ngan et al. A reduced-order model for segregated FSI solvers based on an ALE approach. Computers &amp; Fluids, 2025.</a></li>
+        <li><a href="https://doi.org/10.1016/j.cma.2025.117736">Pellegrini et al. A non-intrusive nonlinear structural ROM for partitioned two-way FSI computations. CMAME, 2025.</a></li>
+        <li><a href="https://doi.org/10.1016/j.nucengdes.2012.03.043">Yang et al. Experimental investigation on FSI caused by flow through a double-plate structure. Nuclear Engineering and Design, 2012.</a></li>
+        <li><a href="https://doi.org/10.1016/j.anucene.2026.112348">Jiang et al. Thermal-fluid-structure coupling analysis on plate-type fuel elements under vibration and thermal loads. Annals of Nuclear Energy, 2026.</a></li>
+        <li><a href="https://doi.org/10.13832/j.jnpe.2024.04.0142">Min &amp; Jiang. A reduced-order model of mode characteristics and FIV response of fuel rod based on POD. Nuclear Power Engineering, 2024.</a></li>
+      </ol>
+      <p class="reference-note">说明：当前检索未发现完全相同的“板型燃料全耦合 POD-ROM”论文，不等于该方向从未被研究。任何“首次”声明都需要进一步系统检索与专利审查。</p>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>FSI × POD Research Idea Audit</strong><span>独立评估 · 证据优先 · 可证伪设计</span></div>
+    <a href="#top">返回顶部 ↑</a>
+  </footer>
+</body>
+</html>
