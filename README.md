@@ -4,7 +4,11 @@
 
 ## 在线阅读
 
-网站由 GitHub Pages 自动发布。仓库每次更新 `dist/` 后，工作流会重新部署页面。
+[![Deploy GitHub Pages](https://github.com/YangC1222/FSI_POD/actions/workflows/pages.yml/badge.svg)](https://github.com/YangC1222/FSI_POD/actions/workflows/pages.yml)
+
+**阅读地址：[https://yangc1222.github.io/FSI_POD/](https://yangc1222.github.io/FSI_POD/)**
+
+页面适配桌面端和移动端，可通过顶部目录跳转到各章节。
 
 ## 内容结构
 
@@ -18,3 +22,10 @@
 ## 本地预览
 
 直接打开 `dist/index.html`，或在 `dist` 目录启动任意静态文件服务。
+
+## 发布说明
+
+- 网站文件位于 `dist/`。
+- 推送到 `main` 分支后，[GitHub Actions](https://github.com/YangC1222/FSI_POD/actions/workflows/pages.yml) 会自动发布最新页面。
+- 如果首次发布尚未启用，请在仓库 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**；工作流完成后即可通过上方地址访问。
+- 也可在 Actions 页面手动运行 **Deploy research analysis to GitHub Pages**。
